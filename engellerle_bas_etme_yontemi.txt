@@ -1,0 +1,42 @@
+Python dilinde yazılmış kodumuzun temel pseudocode'u şudur:
+
+köşe_sürecinde = False # robot mavi ile turuncu çizgilerin arasında ise True'dur
+köşe_çıkış_sürecinde = False # turuncu çizgiyi geçiş ile aracın yönünün düzelmesi arasında True'dur
+hedef_derece = 0 # robot yönünü bu açıya göre değiştirir. negatif değerler sol tarafı temsil eder.
+anlık_derece = 0 # robotun anlık açısı
+
+her zaman ileri gidiyor
+
+program döngüsü:
+
+    while köşe_çıkış_sürecinde:
+		hedef derece sıfırlanana kadar bekle (anlık derece 90 olana kadar)
+		anlık_derece = 0 # dönüş tamamlandıktan sonra referans açı sıfırlanır
+        köşe_çıkış_sürecinde = False
+
+	while değil köşe_sürecinde:
+		eğer mavi görürse:
+			köşe_sürecinde = True
+			hedef_derece -= 45 # robot 45 derece açı dönerek turuncu çizgiye doğru yönelir
+		
+        kamera()
+        eğer sonuç yeşil ışık ise:
+            eğer uzak ise:
+                ışığa yönelir
+            değilse:
+                ışığın solundan geçilir
+                eski hizaya dönülür
+        eğer sonuç kırmızı ışık ise:
+            eğer uzak ise:
+                ışığa yönelir
+            değilse:
+                ışığın sağından geçilir
+                eski hizaya dönülür
+
+	while köşe_sürecinde:
+		eğer turuncu görürse:
+			köşe_sürecinde = False
+			köşe_çıkış_sürecinde = True
+			hedef_derece -= 45 # 45 derece açılık bir dönüş daha ile 90 derecelik dönüş tamamlanır
+
+Işık olmadığı durumda robot köşelerdeki çizgiler yardımıyla dönebilmektedir. Işıklar var ise her zaman önündeki ışığa yönelmekte, ışık kamerada belli bir yüksekliğe ulaşınca yanından dolanmaktadır.
